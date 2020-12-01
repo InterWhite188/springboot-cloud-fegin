@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 开启@Autowired注解功能 -->
+    <context:annotation-config/>
+    <!-- 使用注解式aop必须的配置 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
+
+    <!-- 支持 @Async 注解 -->
+    <task:annotation-driven executor="taskExecutor"/>
+
+    <!-- 组件扫描器（自动注册bean） -->
+    <context:component-scan base-package="com.epoch" use-default-filters="false">
+        <!--<context:include-filter type="annotation" expression="com.epoch.user.testThread.java"/>-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+    <context:component-scan base-package="com.epoch">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 加载数据源配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <!-- 是否忽略不可解析的 -->
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <!-- 多个locations， 单个location <value> -->
+        <property name="locations">
+            <list>
+                <!--<value>classpath:webservices.properties</value>-->
+                <!--<value>classpath:imageSystem.properties</value>-->
+                <!--<value>classpath:workflow.properties</value>-->
+                <!--<value>classpath:travelTenant.properties</value>-->
+                <!--<value>classpath:rest-template.properties</value>-->
+                <!--<value>classpath:metadata.properties</value>-->
+                <!--<value>classpath:log.properties</value>-->
+                <!--<value>classpath:redis.properties</value>-->
+                <!--<value>classpath:jdbc.properties</value>-->
+                <!--<value>classpath:gomro.properties</value>-->
+            </list>
+        </property>
+    </bean>
+
+
+
+
+
+</beans>
